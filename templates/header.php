@@ -8,7 +8,7 @@
     <title>Notes App | Muhammad Farhan</title>
     <!-- ======= Styles ====== -->
     <link rel="stylesheet" href="assets/css/style.css">
-    <link rel="stylesheet" href="assets/bootstrap-5.3.3/dist/css/bootstrap.min.css">
+    <!-- <link rel="stylesheet" href="assets/bootstrap-5.3.3/dist/css/bootstrap.min.css"> -->
 </head>
 
 <body>

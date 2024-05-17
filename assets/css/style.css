@@ -15,6 +15,10 @@
   --gray: #f5f5f5;
   --black1: #222;
   --black2: #999;
+  --note-red: #ff686b;
+  --note-blue: #5aa9e6;
+  --note-green: #adf7b6;
+  --note-orange: #ffd670;
 }
 
 body {
@@ -188,29 +192,51 @@ body {
   font-size: 1.2rem;
 }
 
-.user {
+.user, .user-profile {
   position: relative;
   width: 40px;
   height: 40px;
   border-radius: 50%;
   overflow: hidden;
   cursor: pointer;
-
+  background-color: rgb(0, 0, 0);
 }
 
-.user img {
+.user img, .user-profile img {
   position: absolute;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
   object-fit: cover;
+  border-radius: 100%;
 }
 
-.title {
+.user-profile {
+  width: 250px;
+  height: 250px;
+  margin: auto;
+}
+
+.user-profile ion-icon {
+  font-size: 100px;
+  color: #fff;
+  position: absolute;
+  top: 80px;
+  left: 80px;
+  display: none;
+}
+
+.title, .title-profile {
   margin: 30px;
   font-size: 30px;
   color: var(--black1);
+}
+
+.title-profile {
+  text-align: center;
+  font-size: 20px;
+  margin-top: 50px;
 }
 
 /* ======================= Cards ====================== */
@@ -237,29 +263,33 @@ body {
   box-shadow: 0 7px 25px rgba(0, 0, 0, 0.08);
 }
 
+.cardBox .card .card-header {
+  margin-bottom: 15px;
+}
+
 .cardBox .card .card-title {
   position: relative;
   overflow: hidden;
+  max-height: 80px;
   font-weight: 500;
   font-size: 2rem;
   color: var(--black1);
-  margin-bottom: 15px;
+}
+
+.cardBox .card .card-header .tags {
+  height: 20px;
+  overflow: hidden;
+}
+
+.cardBox .card .s-between {
+  height: 190px;
+  overflow: hidden;
 }
 
 .cardBox .card .card-body {
   color: var(--black1);
   font-size: 1rem;
   margin-top: 5px;
-}
-
-.cardBox .card .card-body p {
-  height: 100px;
-  overflow: hidden;
-}
-
-
-.cardBox .card .card-footer {
-  margin-top: 20px;
 }
 
 .cardBox .card .card-footer p {
@@ -285,11 +315,18 @@ body {
   color: var(--white);
 }
 
+.profile {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+}
+
 .add-input {
   margin-top: 50px;
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
 }
 
 .add-input input {
@@ -299,6 +336,10 @@ body {
   border-bottom: 3px solid var(--blue);
   font-size: 30px;
   padding: 15px;
+}
+
+.add-input-profile input {
+  width: 50%;
 }
 
 .add-input input:hover,
@@ -319,26 +360,83 @@ body {
   padding: 10px 20px;
 }
 
-.add-input .action {
-  margin-top: 30px;
-  width: 80%;
-  display: flex;
-  justify-content: end;
+.add-input-profile textarea {
+  width: 50%;
 }
 
-.add-input .action .btn {
-  width: 100px;
+.add-input .action {
+  margin-top: 30px;
+  width: 50%;
+  display: flex;
+  justify-content: center;
+}
+
+.add-input .action .btn, .btn-back, .btn-edit-profile {
+  width: 100%;
   height: 50px;
   border-radius: 50px;
   background-color: var(--blue);
   margin-left: 20px;
   color: var(--white);
   transition: .2s ease-out;
+  border: none;
+  cursor: pointer;
 }
 
 .add-input .action .btn:hover {
   transform: scale(1.1);
-} 
+}
+
+.btn-back {
+  width: 130px;
+  height: 50px;
+  margin: 30px;
+  font-size: 1em;
+}
+
+.btn-edit-profile {
+  width: 300px;
+  font-size: 1em;
+  margin: 0;
+  margin-top: 15px;
+}
+
+.colors {
+  margin-top: 20px;
+  width: 50%;
+  height: 60px;
+  display: flex;
+  justify-content: space-around;
+}
+
+.colors .color {
+  width: 3.9em;
+  height: 100%;
+  border: 3px solid #fff;
+  box-shadow: 0px 0px 6px 2px #a3a3a3;
+  border-radius: 50%;
+}
+
+.colors .color:hover {
+  opacity: .5;
+}
+
+.colors .red{
+  background-color: var(--note-red);
+}
+
+.colors .blue {
+  background-color: var(--note-blue);
+}
+
+.colors .green {
+  background-color: var(--note-green);
+}
+
+.colors .orange {
+  background-color: var(--note-orange);
+}
+
 
 /* ====================== Responsive Design ========================== */
 @media (max-width: 991px) {
@@ -425,12 +523,12 @@ body {
   }
 }
 
-.non-active {
+/* .non-active {
   display: none;
-}
+} */
 
 .modal {
-  display: flex;
+  display: none;
   align-items: center;
   justify-content: space-around;
   flex-direction: column;
@@ -466,4 +564,16 @@ body {
 
 .modal button:hover {
   transform: scale(1.1); 
+}
+
+.footer {
+  width: 100%;
+  height: 70px;
+  margin: 0;
+  background-color: var(--blue);
+  color: var(--white);
+  text-align: center;
+  font-size: 20px;
+  line-height: 70px;
+  margin-top: 100px;
 }
