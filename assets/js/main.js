@@ -24,35 +24,79 @@ function tutupModal() {
   modal.style.display = "none";
 }
 
-function eventNotes() {
-  let notes = document.querySelectorAll("#notes");
-  if(notes){
-    notes.forEach(note => {
-      let noteId = note.querySelector('.noteId').value;
-      let btnHapus = note.querySelector('.icon_hapus');
-      let btnEdit = note.querySelector('.icon_edit');
-      let btnIya =  document.querySelector('.btnIya');
-      let btnTidak =  document.querySelector('.btnTidak');
-      note.addEventListener('click', function(e){
-        if(e.target !== btnHapus && e.target !== btnEdit){
-          window.location.href = "detailNote.php?id=" + noteId;
-        }
-        if(e.target === btnHapus){
-          tampilModal();
-          btnTidak.addEventListener('click', function () {
-            tutupModal();
-          });
-          btnIya.addEventListener('click', function () {
-            window.location.href = "hapusNote.php?id=" + noteId;
-            tutupModal();
-          });
-        }
-      });
-    });
+const urlParams = new URLSearchParams(window.location.search);
+if(modal){
+  let modalMsg = modal.querySelector(".teks");
+  let gambarModal = modal.querySelector("img");
+  let btn1 =  document.querySelector('.btn-1');
+  let btn2 =  document.querySelector('.btn-2');
+  if(urlParams.get('status') === 'success'){
+    tampilModal();
+    let imgPath = "assets/imgs/checklist.png";
+    gambarModal.setAttribute("src", imgPath);
+    if(urlParams.get('message') === 'addsuccess'){
+      modalMsg.innerText = "Berhasil menambah note!";
+    } else if(urlParams.get('message') === 'delsuccess'){
+      modalMsg.innerText = "Berhasil menghapus note!";
+    } else if(urlParams.get('message') === 'updtsuccess'){
+      modalMsg.innerText = "Berhasil update note!";
+    }
+  } else if(urlParams.get('status') === 'failed'){
+    tampilModal();
+    let imgPath = "assets/imgs/remove.png";
+    gambarModal.setAttribute("src", imgPath);
+    if(urlParams.get('message') === 'addfailed'){
+      modalMsg.innerText = "Gagal menambah note!";
+    } else if(urlParams.get('message') === 'delfailed') {
+      modalMsg.innerText = "Gagal menghapus note!";
+    } else if(urlParams.get('message') === 'updtfailed'){
+      modalMsg.innerText = "Gagal update note!";
+    }
   }
+  btn1.innerText = "Oke";
+  btn1.style.cursor = "pointer";
+  btn2.style.display = "none";
+  btn1.addEventListener('click', function () {
+    tutupModal();
+  });
+
+  function eventNotes() {
+    let notes = document.querySelectorAll("#notes");
+    if(notes){
+      notes.forEach(note => {
+        let noteId = note.querySelector('.noteId').value;
+        let btnHapus = note.querySelector('.icon_hapus');
+        let btnEdit = note.querySelector('.icon_edit');
+        note.addEventListener('click', function(e){
+          if(e.target !== btnHapus && e.target !== btnEdit){
+            window.location.href = "detailNote.php?id=" + noteId;
+          }
+          if(e.target === btnHapus){
+            tampilModal();
+            let imgPath = "assets/imgs/question.png";
+            gambarModal.setAttribute("src", imgPath);
+            btn1.classList.add("btnTidak");
+            btn1.innerText = "Tidak";
+            btn2.classList.add("btnIya");
+            btn2.innerText = "Iya";
+            btn2.style.display = "inline";
+            modalMsg.innerText = "Apakah Anda Yakin Ingin Menghapus?";
+            btn1.addEventListener('click', function () {
+              tutupModal();
+            });
+            btn2.addEventListener('click', function () {
+              window.location.href = "hapusNote.php?id=" + noteId;
+              tutupModal();
+            });
+          }
+        });
+      });
+    }
+  }
+  
+  eventNotes();
 }
 
-eventNotes();
 
 function formatTimestamp(timestamp){
   const date = new Date(timestamp);
@@ -228,24 +272,3 @@ document.addEventListener('DOMContentLoaded', function(){
     }
   }
 });
-
-const urlParams = new URLSearchParams(window.location.search);
-let modalMsg = modal.querySelector(".teks");
-let modalAksi = modal.querySelector(".action");
-let gambarModal = modal.querySelector("img");
-if(urlParams.has('success')){
-  tampilModal();
-  let imgPath = "assets/imgs/checklist.png";
-  gambarModal.setAttribute("src", imgPath);
-  modalMsg.innerText = "Berhasil menambah note";
-} else if(urlParams.has('failed')){
-  tampilModal();
-  let imgPath = "assets/imgs/remove.png";
-  gambarModal.setAttribute("src", imgPath);
-  modalMsg.innerText = "Gagal menambah note";
-}
-modalAksi.innerHTML = "<button class='btn-oke'>Oke</button>";
-let btnOke = modal.querySelector(".btn-oke");
-btnOke.addEventListener('click', function () {
-  tutupModal();
-}); 

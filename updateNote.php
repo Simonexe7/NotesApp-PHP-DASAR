@@ -13,8 +13,12 @@ if (isset($_POST["submit"])) {
     $data[] = htmlspecialchars(trim($_POST['body']));
     $data[] = htmlspecialchars(trim($_POST['color']));
 
-    mysqli_query($conn, "UPDATE notes SET title = '$data[0]', tags = '$data[1]', body = '$data[2]', color = '$data[3]', updated_at = NOW() WHERE id = $noteId");
-    header("location: index.php");
+    $result = mysqli_query($conn, "UPDATE notes SET title = '$data[0]', tags = '$data[1]', body = '$data[2]', color = '$data[3]', updated_at = NOW() WHERE id = $noteId");
+    if ($result) {
+        header("location: index.php?status=success&message=updtsuccess");
+    } else {
+        header("location: index.php?status=failed&message=updtfailed");
+    }
 }
 
 ?>

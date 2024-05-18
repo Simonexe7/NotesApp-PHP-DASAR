@@ -125,11 +125,11 @@ $notes = getNotes();
 
     <!-- modal -->
     <div class="modal non-active">
-        <img src="assets/imgs/question.png" alt="">
-        <p class="teks">Apakah Anda Yakin Ingin Menghapus?</p>
+        <img src="" alt="">
+        <p class="teks"></p>
         <div class="action">
-            <button class="btnIya">Iya</button>
-            <button class="btnTidak">Tidak</button>
+            <button class="btn-1"></button>
+            <button class="btn-2"></button>
         </div>
     </div>
 

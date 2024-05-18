@@ -10,11 +10,9 @@ if (isset($_POST["submit"])) {
     $data[] = htmlspecialchars(trim($_POST["color"]));
 
     if (createNote($data)) {
-        http_response_code(400);
-        header("location: index.php?failed=true");
+        header("location: index.php?status=failed&message=addfailed");
     } else {
-        http_response_code(200);
-        header("location: index.php?success=true");
+        header("location: index.php?status=success&message=addsuccess");
     }
 }
 ?>
