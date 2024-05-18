@@ -8,8 +8,14 @@ if (isset($_POST["submit"])) {
     $data[] = htmlspecialchars(trim($_POST["tags"]));
     $data[] = htmlspecialchars(trim($_POST["body"]));
     $data[] = htmlspecialchars(trim($_POST["color"]));
-    
-    createNote($data);
+
+    if (createNote($data)) {
+        http_response_code(400);
+        header("location: index.php?failed=true");
+    } else {
+        http_response_code(200);
+        header("location: index.php?success=true");
+    }
 }
 ?>
 <div class="container">

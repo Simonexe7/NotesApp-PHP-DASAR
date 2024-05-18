@@ -60,7 +60,7 @@ $notes = getNotes();
 
             <div class="search">
                 <label>
-                    <input type="text" placeholder="Search here">
+                    <input type="text" placeholder="Search here" id="search">
                     <ion-icon name="search-outline"></ion-icon>
                 </label>
             </div>
@@ -78,6 +78,9 @@ $notes = getNotes();
 
         <!-- ======================= Cards ================== -->
         <div class="cardBox">
+            <?php if (count($notes) == 0): ?>
+                <h1 class="message">Tidak ada Note. Klik icon + untuk membuat Note.</h1>
+            <?php endif; ?>
             <?php foreach ($notes as $note): ?>
                 <div class="card" id="notes" style="background-color: <?= $note['color']; ?>">
                     <form method="GET">

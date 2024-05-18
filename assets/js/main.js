@@ -24,31 +24,102 @@ function tutupModal() {
   modal.style.display = "none";
 }
 
-let notes = document.querySelectorAll("#notes");
-if(notes){
-  notes.forEach(note => {
-    let noteId = note.querySelector('.noteId').value;
-    let btnHapus = note.querySelector('.icon_hapus');
-    let btnEdit = note.querySelector('.icon_edit');
-    let btnIya =  document.querySelector('.btnIya');
-    let btnTidak =  document.querySelector('.btnTidak');
-    note.addEventListener('click', function(e){
-      if(e.target !== btnHapus && e.target !== btnEdit){
-        window.location.href = "detailNote.php?id=" + noteId;
-      }
-      if(e.target === btnHapus){
-        tampilModal();
-        btnTidak.addEventListener('click', function () {
-          tutupModal();
-        });
-        btnIya.addEventListener('click', function () {
-          window.location.href = "hapusNote.php?id=" + noteId;
-          tutupModal();
-        });
-      }
+function eventNotes() {
+  let notes = document.querySelectorAll("#notes");
+  if(notes){
+    notes.forEach(note => {
+      let noteId = note.querySelector('.noteId').value;
+      let btnHapus = note.querySelector('.icon_hapus');
+      let btnEdit = note.querySelector('.icon_edit');
+      let btnIya =  document.querySelector('.btnIya');
+      let btnTidak =  document.querySelector('.btnTidak');
+      note.addEventListener('click', function(e){
+        if(e.target !== btnHapus && e.target !== btnEdit){
+          window.location.href = "detailNote.php?id=" + noteId;
+        }
+        if(e.target === btnHapus){
+          tampilModal();
+          btnTidak.addEventListener('click', function () {
+            tutupModal();
+          });
+          btnIya.addEventListener('click', function () {
+            window.location.href = "hapusNote.php?id=" + noteId;
+            tutupModal();
+          });
+        }
+      });
     });
+  }
+}
+
+eventNotes();
+
+function formatTimestamp(timestamp){
+  const date = new Date(timestamp);
+  const formattedDate = date.toLocaleDateString('id-ID', {
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric'
+  });
+  return formattedDate;
+};
+
+function formatTimestampAll() {
+  let displayTime = document.querySelectorAll(".time-create");
+  displayTime.forEach(dTime => {
+    let timestamps = dTime.innerText;
+    dTime.innerText = formatTimestamp(timestamps);
   });
 }
+
+document.addEventListener('DOMContentLoaded', () => {
+  let search = document.getElementById('search');
+  let container = document.querySelector('.cardBox');
+  if(search){
+    search.addEventListener('keyup', function () {
+      let xhr = new XMLHttpRequest();
+      xhr.onreadystatechange = function(){
+        if(xhr.readyState == 4 && xhr.status == 200){
+          container.innerHTML = xhr.responseText;
+          eventNotes();
+          formatTimestampAll();
+          let message = container.querySelector(".message");
+          if(message !== null){
+            container.style.display = "flex";
+            container.style.justifyContent = "center";
+            container.style.alignItems = "center";
+            message.style.color = "#888"
+          } else {
+            container.style.display = "grid";
+            messageEmpty();
+          }   
+        }
+      }
+      xhr.open('GET', 'ajax/notes.php?keyword='+search.value, true);
+      xhr.send();
+    });
+  }
+});
+
+formatTimestampAll();
+
+function messageEmpty(){
+  let container = document.querySelector('.cardBox');
+  let message = document.querySelector(".message");
+  if(message !== null){
+    container.style.display = "flex";
+    container.style.justifyContent = "center";
+    container.style.alignItems = "center";
+    message.style.marginTop = "140px";
+    message.style.color = "#888"
+  } else {
+    if (container) {
+      container.style.display = "grid";
+    }
+  }   
+}
+
+messageEmpty();
 
 document.addEventListener('DOMContentLoaded', function(){
   if(document.getElementById('profile')){
@@ -158,18 +229,23 @@ document.addEventListener('DOMContentLoaded', function(){
   }
 });
 
-function formatTimestamp(timestamp){
-  const date = new Date(timestamp);
-  const formattedDate = date.toLocaleDateString('id-ID', {
-    year: 'numeric',
-    month: 'long',
-    day: 'numeric'
-  });
-  return formattedDate;
-};
-
-let displayTime = document.querySelectorAll(".time-create");
-displayTime.forEach(dTime => {
-  let timestamps = dTime.innerText;
-  dTime.innerText = formatTimestamp(timestamps);
-});
+const urlParams = new URLSearchParams(window.location.search);
+let modalMsg = modal.querySelector(".teks");
+let modalAksi = modal.querySelector(".action");
+let gambarModal = modal.querySelector("img");
+if(urlParams.has('success')){
+  tampilModal();
+  let imgPath = "assets/imgs/checklist.png";
+  gambarModal.setAttribute("src", imgPath);
+  modalMsg.innerText = "Berhasil menambah note";
+} else if(urlParams.has('failed')){
+  tampilModal();
+  let imgPath = "assets/imgs/remove.png";
+  gambarModal.setAttribute("src", imgPath);
+  modalMsg.innerText = "Gagal menambah note";
+}
+modalAksi.innerHTML = "<button class='btn-oke'>Oke</button>";
+let btnOke = modal.querySelector(".btn-oke");
+btnOke.addEventListener('click', function () {
+  tutupModal();
+}); 
