@@ -13,7 +13,7 @@ $note = getNoteById();
             <input type="hidden" id="noteId" value="<?= $note['id']; ?>">
             <input type="text" placeholder="Title" name="title" value="<?= $note['title']; ?>" readonly>
             <input type="text" placeholder="Tags" name="tags" value="<?= $note['tags']; ?>" readonly>
-            <textarea type="text" placeholder="Body" name="body"><?= $note['body']; ?></textarea>
+            <textarea type="text" placeholder="Body" name="body" readonly><?= $note['body']; ?></textarea>
             <div class="action">
                 <button type="button" class="btn btn_cancel">Back</button>
                 <button type="button" class="btn btn_edit">Edit</button>

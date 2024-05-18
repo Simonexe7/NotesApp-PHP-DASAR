@@ -29,9 +29,9 @@ if (isset($_POST["submit"])) {
 
     <form method="POST" id="noteForm">
         <div class="add-input">
-            <input type="text" placeholder="Title" name="title" value="<?= $note['title']; ?>">
-            <input type="text" placeholder="Tags" name="tags" value="<?= $note['tags']; ?>">
-            <textarea type="text" placeholder="Body" name="body"><?= $note['body']; ?></textarea>
+            <input type="text" placeholder="Title" name="title" value="<?= $note['title']; ?>" required>
+            <input type="text" placeholder="Tags" name="tags" value="<?= $note['tags']; ?>" required>
+            <textarea type="text" placeholder="Body" name="body" required><?= $note['body']; ?></textarea>
             <input type="hidden" name="color" id="note_color" value="<?= $note['color']; ?>">
             <div class="colors">
                 <div class="color red"></div>

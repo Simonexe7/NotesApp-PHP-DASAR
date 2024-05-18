@@ -193,16 +193,7 @@ document.addEventListener('DOMContentLoaded', function(){
     }
   }
   if(document.getElementById('noteForm')){
-    let btnCancel = document.querySelector(".btn_cancel");
-    let btnEdit = document.querySelector(".btn_edit");
-    let inputColor = document.getElementById('note_color');
-    let noteRed = document.querySelector(".colors .red");
-    let noteBlue = document.querySelector(".colors .blue");
-    let noteGreen = document.querySelector(".colors .green");
-    let noteOrange = document.querySelector(".colors .orange");
     let toggleEye = document.getElementById('toggleIcon');
-    let toggleEye2 = document.getElementById('toggleIcon2');
-    
     if (toggleEye) {
       toggleEye.addEventListener('click', function () {
         const passwordInput = document.getElementById('password');
@@ -212,6 +203,7 @@ document.addEventListener('DOMContentLoaded', function(){
         this.setAttribute('name', name);
       });
     }
+    let toggleEye2 = document.getElementById('toggleIcon2');
     if (toggleEye2) {
       toggleEye2.addEventListener('click', function () {
         const passwordInput = document.getElementById('pwdRepeat');
@@ -221,6 +213,11 @@ document.addEventListener('DOMContentLoaded', function(){
         this.setAttribute('name', name);
       });
     }
+    let inputColor = document.getElementById('note_color');
+    let noteRed = document.querySelector(".colors .red");
+    let noteBlue = document.querySelector(".colors .blue");
+    let noteGreen = document.querySelector(".colors .green");
+    let noteOrange = document.querySelector(".colors .orange");
     if(noteRed){
       noteRed.addEventListener('click', function(){
         inputColor.value = "#ff686b";
@@ -257,6 +254,8 @@ document.addEventListener('DOMContentLoaded', function(){
         noteOrange.style.borderColor = "#aaf683";
       });
     }
+    let btnCancel = document.querySelector(".btn_cancel");
+    let btnEdit = document.querySelector(".btn_edit");
     if(btnCancel){
       btnCancel.addEventListener('click', function(e){
         e.preventDefault();

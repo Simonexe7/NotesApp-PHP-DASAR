@@ -23,9 +23,9 @@ if (isset($_POST["submit"])) {
 
     <form action="" method="POST" id="noteForm">
         <div class="add-input">
-            <input type="text" placeholder="Title" name="title">
-            <input type="text" placeholder="Tags" name="tags">
-            <textarea type="text" placeholder="Body" name="body"></textarea>
+            <input type="text" placeholder="Title" name="title" required>
+            <input type="text" placeholder="Tags" name="tags" required>
+            <textarea type="text" placeholder="Body" name="body" required></textarea>
             <input type="hidden" name="color" id="note_color">
             <div class="colors">
                 <div class="color red"></div>
