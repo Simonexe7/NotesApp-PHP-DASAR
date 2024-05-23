@@ -45,7 +45,7 @@ $notes = getNotes();
             </li>
 
             <li>
-                <a href="loginPage.php">
+                <a href="#" id="logout">
                     <span class="icon">
                         <ion-icon name="log-out-outline"></ion-icon>
                     </span>

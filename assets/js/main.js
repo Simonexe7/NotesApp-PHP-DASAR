@@ -277,3 +277,30 @@ document.addEventListener('DOMContentLoaded', function(){
     }
   }
 });
+
+let btnLogout = document.getElementById("logout");
+if(btnLogout){
+  btnLogout.addEventListener('click', function(e){
+    e.preventDefault();
+    console.log("ok");
+    let modalMsg = modal.querySelector(".teks");
+    let gambarModal = modal.querySelector("img");
+    let btn1 =  document.querySelector('.btn-1');
+    let btn2 =  document.querySelector('.btn-2');
+    let imgPath = "assets/imgs/question.png";
+    modalMsg.innerText = "Apakah anda yakin ingin keluar?";
+    gambarModal.setAttribute("src", imgPath);
+    btn2.style.display = "inline";
+    btn1.innerText = "Iya";
+    btn2.innerText = "Tidak";
+    tampilModal();
+    btn1.addEventListener('click', function(){
+      window.location.href = "loginPage.php";
+    });
+    btn2.addEventListener('click', function (e){
+      if(e.target !== btnLogout){
+        tutupModal();
+      }
+    });
+  });
+}
