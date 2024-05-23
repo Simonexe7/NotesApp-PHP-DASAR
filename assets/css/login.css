@@ -114,3 +114,53 @@ input[type="password"]::-ms-reveal,
 input[type="password"]::-ms-clear {
     display: none;
 }
+
+
+.bg-modal {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: none;
+}
+
+.modal {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  flex-direction: column;
+  border-radius: 10px;
+  position: absolute;
+  top: 28vh;
+  left: 31vw;
+  z-index: 9999;
+  background-color: white;
+  border: 1px solid black;
+  width: 500px;
+  height: 300px;
+  text-align: center;
+  font-family: "Ubuntu", sans-serif;
+  font-size: 1.8em;
+  padding: .5em;
+}
+
+.modal img {
+  height: 100px;
+}
+
+.modal button {
+  width: 100px;
+  height: 40px;
+  border-radius: 50px;
+  background-color: #2a2185;
+  margin-left: 20px;
+  color: #fff;
+  transition: .2s ease-out;
+  border: none;
+}
+
+.modal button:hover {
+  transform: scale(1.1); 
+}

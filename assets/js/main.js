@@ -15,9 +15,9 @@ function direct(e){
   window.location.href = "index.php";
 }
 
-let modal = document.querySelector(".modal");
+let modal = document.querySelector(".bg-modal");
 function tampilModal(){
-  modal.style.display = "flex";
+  modal.style.display = "block";
 };
 
 function tutupModal() {
@@ -40,6 +40,8 @@ if(modal){
       modalMsg.innerText = "Berhasil menghapus note!";
     } else if(urlParams.get('message') === 'updtsuccess'){
       modalMsg.innerText = "Berhasil update note!";
+    } else if(urlParams.get('message') == 'regsuccess'){
+      modalMsg.innerText = "Berhasil membuat akun!";
     }
   } else if(urlParams.get('status') === 'failed'){
     tampilModal();
@@ -51,6 +53,10 @@ if(modal){
       modalMsg.innerText = "Gagal menghapus note!";
     } else if(urlParams.get('message') === 'updtfailed'){
       modalMsg.innerText = "Gagal update note!";
+    } else if(urlParams.get('message') == 'invalidpwd'){
+      modalMsg.innerText = "Password dan Ulangi Password harus sama!";
+    } else if(urlParams.get('message') == 'regfailed'){
+      modalMsg.innerText = "Gagal membuat akun!";
     }
   }
   btn1.innerText = "Oke";

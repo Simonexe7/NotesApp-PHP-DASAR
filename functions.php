@@ -41,3 +41,27 @@ function findNote($keyword)
     }
     return $notes;
 }
+
+function register($data)
+{
+    global $conn;
+    if ($data[5] !== $data[6]) {
+        header("location: registerPage.php?status=failed&message=invalidpwd");
+        exit();
+    }
+
+    $pwdHashed = password_hash($data[5], PASSWORD_DEFAULT);
+    $result = mysqli_query($conn, "INSERT INTO users(
+        id, firstname, lastname, profileImg, username, email, password
+        ) VALUES (
+        '', '$data[0]', '$data[1]', '$data[2]', '$data[3]', '$data[4]', '$pwdHashed'
+        )");
+
+    if ($result) {
+        header("location: loginPage.php?status=success&message=regsuccess");
+        exit();
+    } else {
+        header("location: registerPage.php?status=failed&message=regfailed");
+        exit();
+    }
+}
