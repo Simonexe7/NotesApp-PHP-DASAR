@@ -1,6 +1,11 @@
 <?php require_once 'functions.php'; ?>
 <?php
 $notes = getNotes();
+session_start();
+$userid = $_SESSION["userid"];
+$username = $_SESSION["username"];
+
+$user = getUser($userid, $username);
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -67,7 +72,7 @@ $notes = getNotes();
 
             <div class="user">
                 <a href="profile.php">
-                    <img src="assets/imgs/customer01.jpg" alt="">
+                    <img src="assets/imgs/<?= $user['profileImg']; ?>" alt="">
                 </a>
             </div>
         </div>

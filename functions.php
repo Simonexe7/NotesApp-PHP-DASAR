@@ -65,3 +65,39 @@ function register($data)
         exit();
     }
 }
+
+function login($data)
+{
+    global $conn;
+    $username = mysqli_query($conn, "SELECT username FROM users WHERE username = '$data[0]'");
+    if (mysqli_num_rows($username) == 0) {
+        header("location: loginPage.php?status=failed&message=usernamenotfound");
+        exit();
+    }
+
+    $pwdHashed = mysqli_query($conn, "SELECT password FROM users WHERE username = '$data[0]'");
+    $pwdHashed = mysqli_fetch_array($pwdHashed);
+    $checkPwd = password_verify($data[1], $pwdHashed[0]);
+    if (!$checkPwd) {
+        header("location: loginPage.php?status=failed&message=wrongpassword");
+        exit();
+    } else {
+        $user = mysqli_query($conn, "SELECT id, username FROM users WHERE username = '$data[0]' AND password = '$pwdHashed[0]'");
+        $user = mysqli_fetch_assoc($user);
+
+        session_start();
+        $_SESSION["userid"] = $user["id"];
+        $_SESSION["username"] = $user["username"];
+
+        header("location: index.php");
+        exit();
+    }
+}
+
+function getUser($userid, $username){
+    global $conn;
+    $result = mysqli_query($conn, "SELECT * FROM users WHERE id = '$userid' AND username = '$username'");
+    $user = mysqli_fetch_assoc($result);
+
+    return $user;
+}

@@ -1,3 +1,15 @@
+<?php
+
+require_once "functions.php";
+if (isset($_POST["submit"])) {
+    $data = [];
+    $data[] = htmlspecialchars(trim($_POST["username"]));
+    $data[] = htmlspecialchars(trim($_POST["password"]));
+
+    login($data);
+}
+
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -12,13 +24,14 @@
     <div class="container">
         <h1>Sign In</h1>
         <p>Halo, Selamat datang!! Agar dapat masuk ke aplikasi Notes App kamu harus login terlebih dulu ya.</p>
-        <form action="" id="noteForm">
-            <input type="text" id="username" placeholder="Masukkan Username">
+        <form method="POST" id="noteForm">
+            <input type="text" id="username" placeholder="Masukkan Username" name="username" required>
             <ion-icon name="person-outline" class="person"></ion-icon>
-            <input type="password" id="password" placeholder="Masukkan Password" autocomplete="new-password">
+            <input type="password" id="password" placeholder="Masukkan Password" autocomplete="new-password"
+                name="password" required>
             <ion-icon name="eye-outline" class="eye" id="toggleIcon"></ion-icon>
             <a href="registerPage.php">Belum punya akun? Buat Akun dulu</a>
-            <button type="submit">Sign In</button>
+            <button type="submit" name="submit">Sign In</button>
         </form>
     </div>
 
