@@ -22,7 +22,7 @@
         </form>
     </div>
 
-    <!-- modal -->
+    <!-- modal msg -->
     <div class="bg-modal">
         <div class="modal">
             <img src="" alt="">

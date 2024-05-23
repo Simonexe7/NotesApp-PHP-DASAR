@@ -123,13 +123,14 @@ $notes = getNotes();
     </div>
 
 
-    <!-- modal -->
-    <div class="modal non-active">
-        <img src="" alt="">
-        <p class="teks"></p>
-        <div class="action">
-            <button class="btn-1"></button>
-            <button class="btn-2"></button>
+    <div class="bg-modal">
+        <div class="modal">
+            <img src="" alt="">
+            <p class="teks"></p>
+            <div class="action">
+                <button class="btn-1"></button>
+                <button class="btn-2"></button>
+            </div>
         </div>
     </div>
 
