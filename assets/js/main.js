@@ -42,6 +42,8 @@ if(modal){
       modalMsg.innerText = "Berhasil update note!";
     } else if(urlParams.get('message') == 'regsuccess'){
       modalMsg.innerText = "Berhasil membuat akun!";
+    } else if(urlParams.get('message') == 'profileupdt'){
+      modalMsg.innerText = "Berhasil update profile!";
     }
   } else if(urlParams.get('status') === 'failed'){
     tampilModal();
@@ -57,7 +59,13 @@ if(modal){
       modalMsg.innerText = "Password dan Ulangi Password harus sama!";
     } else if(urlParams.get('message') == 'regfailed'){
       modalMsg.innerText = "Gagal membuat akun!";
-    }
+    } else if(urlParams.get('message') == 'invalidimg'){
+      modalMsg.innerText = "Format file pada gambar salah!";
+    } else if(urlParams.get('message') == 'oversizeimg'){
+      modalMsg.innerText = "Gambar tidak boleh lebih dari 2 MB!";
+    } else if(urlParams.get('message') == 'failprofileupdt'){
+      modalMsg.innerText = "Update profile gagal!";
+    } 
   }
   btn1.innerText = "Oke";
   btn1.style.cursor = "pointer";

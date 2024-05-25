@@ -41,4 +41,16 @@ $user = getUser($userid, $username);
         </form>
     </div>
 </div>
+
+<div class="bg-modal">
+    <div class="modal">
+        <img src="" alt="">
+        <p class="teks"></p>
+        <div class="action">
+            <button class="btn-1"></button>
+            <button class="btn-2"></button>
+        </div>
+    </div>
+</div>
+
 <?php require_once 'templates/footer.php'; ?>
