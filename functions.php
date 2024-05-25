@@ -94,10 +94,54 @@ function login($data)
     }
 }
 
-function getUser($userid, $username){
+function getUser($userid, $username)
+{
     global $conn;
     $result = mysqli_query($conn, "SELECT * FROM users WHERE id = '$userid' AND username = '$username'");
     $user = mysqli_fetch_assoc($result);
 
     return $user;
+}
+
+function upload()
+{
+    $namaFileValid = ['jpg', 'jpeg', 'bmp', 'gif', 'tiff', 'svg'];
+    $namaFile = strtolower($_FILES["gambar"]["name"]);
+    $file = explode(".", $namaFile);
+    $tmpName = $_FILES["gambar"]["tmp_name"];
+    $encrypt = uniqid();
+    $namaFileBaru = $encrypt . "." . $file[1];
+    $path = "assets/imgs/" . $namaFileBaru;
+
+    if (!in_array($file[1], $namaFileValid)) {
+        header("location: updateProfile.php?status=failed&message=invalidimg");
+        exit();
+    }
+
+    if ($_FILES["gambar"]["size"] > 2000000) {
+        header("location: updateProfile.php?status=failed&message=oversizeimg");
+        exit();
+    }
+
+    move_uploaded_file($tmpName, $path);
+    return $namaFileBaru;
+}
+
+function updateProfile($userid, $data)
+{
+    global $conn;
+    if (isset($_FILES['gambar']) && $_FILES['gambar']['error'] !== UPLOAD_ERR_NO_FILE) {
+        $gambar = upload();
+        $result = mysqli_query($conn, "UPDATE users SET profileImg = '$gambar'");
+    } else {
+        $result = mysqli_query($conn, "UPDATE users SET firstname = '$data[0]', lastname = '$data[1]', username = '$data[2]', email = '$data[3]', hobbies = '$data[4]', description = '$data[5]' WHERE id = $userid");
+
+        if ($result) {
+            header("location: profile.php?status=success&message=profileupdt");
+            exit();
+        } else {
+            header("location: updateProfile.php?status=failed&message=failprofileupdt");
+            exit();
+        }
+    }
 }

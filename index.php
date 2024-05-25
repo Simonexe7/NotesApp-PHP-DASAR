@@ -2,6 +2,11 @@
 <?php
 $notes = getNotes();
 session_start();
+if ($_SESSION == []) {
+    header("location: loginPage.php");
+    exit();
+}
+
 $userid = $_SESSION["userid"];
 $username = $_SESSION["username"];
 

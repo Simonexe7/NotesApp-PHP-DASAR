@@ -7,7 +7,7 @@ $username = $_SESSION["username"];
 $user = getUser($userid, $username);
 ?>
 <div class="container">
-    <button type="button" class="btn-back" id="back" onclick="window.history.back()"><ion-icon
+    <button type="button" class="btn-back" id="back" onclick="window.location.href = 'index.php'"><ion-icon
             name="chevron-back-outline"></ion-icon> Kembali</button>
     <div class="profile" id="profile">
         <div class="user-profile">

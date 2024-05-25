@@ -185,9 +185,24 @@ document.addEventListener('DOMContentLoaded', function(){
         pencil.style.display = "none";
         image.style.opacity = "1";
       });
+      let inputGambar = document.getElementById("inputGambar");
+      let previousValue;
       userProfileEdit.addEventListener('click', function () {
-        let inputGambar = document.getElementById("inputGambar");
         inputGambar.click();
+      });
+      inputGambar.addEventListener('change', function(e){
+        const file = e.target.files[0];
+        console.log(file.name);
+        if(file){
+          const reader = new FileReader();
+          reader.onload = function(e) {
+            image.src = e.target.result;
+            previousValue = image.src;
+          };
+          reader.readAsDataURL(file);
+        } else {
+          image.src = previousValue;
+        }
       });
     }
     let btnEditProfile = document.getElementById('btnEditProfile');
@@ -295,7 +310,7 @@ if(btnLogout){
     btn2.innerText = "Tidak";
     tampilModal();
     btn1.addEventListener('click', function(){
-      window.location.href = "loginPage.php";
+      window.location.href = "logout.php";
     });
     btn2.addEventListener('click', function (e){
       if(e.target !== btnLogout){
