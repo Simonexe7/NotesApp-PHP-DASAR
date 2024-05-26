@@ -15,6 +15,12 @@ function direct(e){
   window.location.href = "index.php";
 }
 
+function clearEventListeners(element) {
+  let newElement = element.cloneNode(true);
+  element.parentNode.replaceChild(newElement, element);
+  return newElement;
+}
+
 let modal = document.querySelector(".bg-modal");
 function tampilModal(){
   let modalWindow = modal.querySelector(".modal");
@@ -80,6 +86,8 @@ if(modal){
   btn1.innerText = "Oke";
   btn1.style.cursor = "pointer";
   btn2.style.display = "none";
+  btn1 = clearEventListeners(btn1);
+  btn2 = clearEventListeners(btn2);
   btn1.addEventListener('click', function () {
     tutupModal();
   });
@@ -105,13 +113,15 @@ if(modal){
             btn2.innerText = "Iya";
             btn2.style.display = "inline";
             modalMsg.innerText = "Apakah Anda Yakin Ingin Menghapus?";
-            btn1.addEventListener('click', function () {
-              tutupModal();
-            });
-            btn2.addEventListener('click', function () {
-              window.location.href = "hapusNote.php?id=" + noteId;
-              tutupModal();
-            });
+            if(modalMsg.innerText == "Apakah Anda Yakin Ingin Menghapus?"){
+              btn1.addEventListener('click', function () {
+                tutupModal();
+              });
+              btn2.addEventListener('click', function (e) {
+                tutupModal();
+                window.location.href = "hapusNote.php?id=" + noteId;
+              });
+            }
           }
         });
       });
@@ -309,7 +319,6 @@ let btnLogout = document.getElementById("logout");
 if(btnLogout){
   btnLogout.addEventListener('click', function(e){
     e.preventDefault();
-    console.log("ok");
     let modalMsg = modal.querySelector(".teks");
     let gambarModal = modal.querySelector("img");
     let btn1 =  document.querySelector('.btn-1');
@@ -318,13 +327,13 @@ if(btnLogout){
     modalMsg.innerText = "Apakah anda yakin ingin keluar?";
     gambarModal.setAttribute("src", imgPath);
     btn2.style.display = "inline";
-    btn1.innerText = "Iya";
-    btn2.innerText = "Tidak";
+    btn1.innerText = "Tidak";
+    btn2.innerText = "Iya";
     tampilModal();
-    btn1.addEventListener('click', function(){
+    btn2.addEventListener('click', function(){
       window.location.href = "logout.php";
     });
-    btn2.addEventListener('click', function (e){
+    btn1.addEventListener('click', function (e){
       if(e.target !== btnLogout){
         tutupModal();
       }

@@ -249,6 +249,10 @@ body {
   grid-gap: 30px;
 }
 
+.cardBox .message {
+  text-align: center;
+}
+
 .cardBox .card {
   width: 260px;
   height: 300px;
