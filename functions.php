@@ -10,7 +10,7 @@ function createNote($data)
 function getNotes()
 {
     global $conn;
-    $result = mysqli_query($conn, "SELECT * FROM notes");
+    $result = mysqli_query($conn, "SELECT * FROM notes ORDER BY updated_at DESC, created_at DESC");
     $notes = [];
     while ($rows = mysqli_fetch_assoc($result)) {
         $tags = explode(", ", $rows["tags"]);

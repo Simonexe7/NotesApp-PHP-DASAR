@@ -34,7 +34,7 @@ if (isset($_POST["submit"])) {
                 <div class="color orange"></div>
             </div>
             <div class="action">
-                <button type="button" class="btn btn_cancel">Cancel</button>
+                <button type="button" class="btn" onclick="window.location.href = 'index.php'">Cancel</button>
                 <button type="submit" class="btn btn_submit" name="submit">Create</button>
             </div>
         </div>

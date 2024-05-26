@@ -17,11 +17,17 @@ function direct(e){
 
 let modal = document.querySelector(".bg-modal");
 function tampilModal(){
+  let modalWindow = modal.querySelector(".modal");
   modal.style.display = "block";
+  modalWindow.style.animation = "fadeIn 0.4s";
 };
 
 function tutupModal() {
-  modal.style.display = "none";
+  let modalWindow = modal.querySelector(".modal");
+  modalWindow.style.animation = "fadeOut 0.4s";
+  modalWindow.addEventListener('animationend', function(){
+    modal.style.display = "none";
+  }, {once: true});
 }
 
 const urlParams = new URLSearchParams(window.location.search);
@@ -65,6 +71,10 @@ if(modal){
       modalMsg.innerText = "Gambar tidak boleh lebih dari 2 MB!";
     } else if(urlParams.get('message') == 'failprofileupdt'){
       modalMsg.innerText = "Update profile gagal!";
+    } else if(urlParams.get('message') == 'usernamenotfound'){
+      modalMsg.innerText = "Username anda salah!";
+    } else if(urlParams.get('message') == 'wrongpassword'){
+      modalMsg.innerText = "Password anda salah!";
     } 
   }
   btn1.innerText = "Oke";
@@ -185,14 +195,8 @@ document.addEventListener('DOMContentLoaded', function(){
     let image = document.querySelector('.user-profile-edit img');
     let pencil = document.querySelector('.pencil');
     if(userProfileEdit){
-      userProfileEdit.addEventListener('mouseover', function () {
-        pencil.style.display = "block";
-        image.style.opacity = "0.7";
-      });
-      userProfileEdit.addEventListener('mouseout', function(){
-        pencil.style.display = "none";
-        image.style.opacity = "1";
-      });
+      pencil.style.display = "block";
+      image.style.opacity = "0.7";
       let inputGambar = document.getElementById("inputGambar");
       let previousValue;
       userProfileEdit.addEventListener('click', function () {

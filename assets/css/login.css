@@ -10,11 +10,13 @@
 
 body {
     background-image: url("../imgs/login-bg.jpg");
-    background-repeat: no-repeat;
+    background-repeat: repeat;
     background-size: cover;
+    padding: 10px;
 }
 
 .container {
+  position: relative;
   margin: auto;
   display: flex;
   justify-content: center;
@@ -56,7 +58,6 @@ form input {
   border: 1px solid rgb(184, 184, 184);
   padding: 10px;
   font-size: 20px;
-  position: relative;
 }
 
 form .fullname {
@@ -84,25 +85,23 @@ form button {
 
 .person {
   position: absolute;
-  top: 335px;
-  right: 480px;
+  top: 185px;
+  right: 62px;
 }
 
 .eye, .eye-r, .eye-r2 {
   position: absolute;
-  top: 405px;
-  right: 480px;
+  top: 255px;
+  right: 62px;
   cursor: pointer;
 }
 
 .eye-r {
-  top: 415px;
-  right: 470px;
+  top: 395px;
 }
 
 .eye-r2 {
-  top: 485px;
-  right: 470px;
+  top: 465px;
 }
 
 ion-icon {
@@ -163,4 +162,110 @@ input[type="password"]::-ms-clear {
 
 .modal button:hover {
   transform: scale(1.1); 
+}
+
+@media (max-width: 768px) {
+  .container {
+    width: 450px;
+  }
+
+  .person {
+    top: 203px;
+    right: 40px;
+  }
+
+  .eye {
+    top: 272px;
+    right: 40px;
+  }
+
+  .eye-r, .eye-r2 {
+    right: 38px;
+  }
+}
+
+@media (max-width: 480px) {
+  .container {
+    width: 300px;
+    font-size: 14px;
+    padding: 23px;
+    /* margin-top: 35px; */
+  }
+
+  .container h1 {
+    font-size: 30px;
+  }
+
+  .container p {
+    margin-bottom: 13px;
+  }
+
+  .container input {
+    width: 100%;
+    height: 40px;
+    font-size: 15px;
+    margin-bottom: 15px;
+  }
+
+  .container a {
+    font-size: 12px;
+  }
+
+  .container button {
+    height: 40px;
+    font-size: 15px;
+  }
+
+  .person {
+    top: 138px;
+    right: 45px;
+    font-size: 23px;
+  }
+
+  .eye, .eye-r, .eye-r2 {
+    top: 193px;
+    right: 45px;
+    font-size: 23px;
+  }
+
+  .eye-r {
+    top: 357px;
+  }
+
+  .eye-r2 {
+    top: 412px;
+  }
+
+  form .fullname {
+    flex-direction: column;
+  }
+
+  form .fullname input {
+    width: 100%;
+  }
+  
+  .modal {
+    width: 300px;
+    top: 28vh;
+    left: 10vw;
+    font-size: 18px;
+    height: 220px;
+  }
+
+  .modal img {
+    width: 70px;
+    height: 70px;
+  }
+}
+
+@keyframes fadeIn {
+  0% {transform: scale(0);}
+  60% {transform: scale(1.1);}
+  100% {transform: scale(1);}
+}
+
+@keyframes fadeOut {
+  0% {transform: scale(1);}
+  40% {transform: scale(1.1);}
+  100% {transform: scale(0);}
 }

@@ -43,7 +43,7 @@ if (isset($_POST["submit"])) {
                 name="pwdRepeat" required>
             <ion-icon name="eye-outline" class="eye-r2" id="toggleIcon2"></ion-icon>
             <a href="loginPage.php">Sudah punya akun? Masuk halaman Login</a>
-            <button type="submit" name="submit">Submit</button>
+            <button type="submit" name="submit">Buat Akun</button>
         </form>
     </div>
 
