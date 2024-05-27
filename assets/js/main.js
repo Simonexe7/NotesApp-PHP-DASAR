@@ -155,9 +155,14 @@ document.addEventListener('DOMContentLoaded', () => {
   let container = document.querySelector('.cardBox');
   if(search){
     search.addEventListener('keyup', function () {
+      let loading = document.getElementById('loading');
+      container.style.display = "none";
+      loading.style.display = "inline";
       let xhr = new XMLHttpRequest();
       xhr.onreadystatechange = function(){
         if(xhr.readyState == 4 && xhr.status == 200){
+          loading.style.display = "none";
+          container.style.display = "flex";
           container.innerHTML = xhr.responseText;
           eventNotes();
           formatTimestampAll();

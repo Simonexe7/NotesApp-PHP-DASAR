@@ -87,6 +87,7 @@ $user = getUser($userid, $username);
         </div>
 
         <!-- ======================= Cards ================== -->
+        <img src="assets/imgs/loading.gif" alt="" id="loading">
         <div class="cardBox">
             <?php if (count($notes) == 0): ?>
                 <h1 class="message">Tidak ada Note. Klik icon + untuk membuat Note.</h1>

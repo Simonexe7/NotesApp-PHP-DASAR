@@ -249,6 +249,14 @@ body {
   grid-gap: 30px;
 }
 
+#loading {
+  display: none;
+  position: absolute;
+  top: 35%;
+  left: 40%;
+  z-index: 9999;
+}
+
 .cardBox .message {
   text-align: center;
 }
