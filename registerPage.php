@@ -1,7 +1,8 @@
 <?php require_once "functions.php";
 
+// mengumpulkan data form ketika tombol submit ditekan
 if (isset($_POST["submit"])) {
-    $data = [];
+    $data = array();
     $data[] = htmlspecialchars(trim($_POST["firstname"]));
     $data[] = htmlspecialchars(trim($_POST["lastname"]));
     $data[] = htmlspecialchars(trim($_POST["profileImg"]));
@@ -10,6 +11,7 @@ if (isset($_POST["submit"])) {
     $data[] = htmlspecialchars(trim($_POST["password"]));
     $data[] = htmlspecialchars(trim($_POST["pwdRepeat"]));
 
+    // jalankan fungsi register
     register($data);
 }
 
@@ -21,13 +23,18 @@ if (isset($_POST["submit"])) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Create Account - NotesApp</title>
+    <link rel="shortcut icon" href="assets/imgs/favicon.ico" type="image/x-icon">
     <link rel="stylesheet" href="assets/css/login.css">
 </head>
 
 <body>
+
+    <!-- container -->
     <div class="container register">
         <h1>Create Account</h1>
         <p>Buat Akunmu terlebih dahulu agar kami dan Notes App dapat mengenal diri kamu.</p>
+
+        <!-- form data -->
         <form method="POST" id="noteForm">
             <input type="hidden" name="profileImg" value="user.svg">
             <div class="fullname">

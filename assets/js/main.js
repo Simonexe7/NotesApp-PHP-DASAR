@@ -10,11 +10,12 @@ function activeLink() {
 
 list.forEach((item) => item.addEventListener("mouseover", activeLink));
 
-function direct(e){
-  e.preventDefault();
+// fungsi untuk kembali ke halaman index
+function direct(){
   window.location.href = "index.php";
 }
 
+// fungsi untuk clear event listener
 function clearEventListeners(element) {
   let newElement = element.cloneNode(true);
   element.parentNode.replaceChild(newElement, element);
@@ -22,12 +23,14 @@ function clearEventListeners(element) {
 }
 
 let modal = document.querySelector(".bg-modal");
+// fungsi untuk menampilkan modal
 function tampilModal(){
   let modalWindow = modal.querySelector(".modal");
   modal.style.display = "block";
   modalWindow.style.animation = "fadeIn 0.4s";
 };
 
+// fungsi untuk menutup modal
 function tutupModal() {
   let modalWindow = modal.querySelector(".modal");
   modalWindow.style.animation = "fadeOut 0.4s";
@@ -36,16 +39,21 @@ function tutupModal() {
   }, {once: true});
 }
 
+// fungsi untuk memodifikasi modal
 const urlParams = new URLSearchParams(window.location.search);
 if(modal){
+  // mengumpulkan elemen modal
   let modalMsg = modal.querySelector(".teks");
   let gambarModal = modal.querySelector("img");
   let btn1 =  document.querySelector('.btn-1');
   let btn2 =  document.querySelector('.btn-2');
+
+  // cek apakah url terdapat parameter status yang bernilai success
   if(urlParams.get('status') === 'success'){
     tampilModal();
     let imgPath = "assets/imgs/checklist.png";
-    gambarModal.setAttribute("src", imgPath);
+    gambarModal.src = imgPath;
+    // mengubah teks modal berdasarkan nilai parameter message pada url
     if(urlParams.get('message') === 'addsuccess'){
       modalMsg.innerText = "Berhasil menambah note!";
     } else if(urlParams.get('message') === 'delsuccess'){
@@ -57,10 +65,12 @@ if(modal){
     } else if(urlParams.get('message') == 'profileupdt'){
       modalMsg.innerText = "Berhasil update profile!";
     }
+  // cek apakah url terdapat parameter status yang bernilai failed
   } else if(urlParams.get('status') === 'failed'){
     tampilModal();
     let imgPath = "assets/imgs/remove.png";
-    gambarModal.setAttribute("src", imgPath);
+    gambarModal.src = imgPath;
+    // mengubah teks modal berdasarkan nilai parameter message pada url
     if(urlParams.get('message') === 'addfailed'){
       modalMsg.innerText = "Gagal menambah note!";
     } else if(urlParams.get('message') === 'delfailed') {
@@ -83,6 +93,7 @@ if(modal){
       modalMsg.innerText = "Password anda salah!";
     } 
   }
+  // menetapkan nilai default pada button modal
   btn1.innerText = "Oke";
   btn1.style.cursor = "pointer";
   btn2.style.display = "none";
@@ -92,17 +103,23 @@ if(modal){
     tutupModal();
   });
 
+  // fungsi untuk memberikan event pada notes
   function eventNotes() {
     let notes = document.querySelectorAll("#notes");
     if(notes){
       notes.forEach(note => {
+        // mengumpulkan elemen pada note
         let noteId = note.querySelector('.noteId').value;
         let btnHapus = note.querySelector('.icon_hapus');
         let btnEdit = note.querySelector('.icon_edit');
+
+        // ketika note di click jalankan sebuah fungsi
         note.addEventListener('click', function(e){
+          // cek apakah yang diklik bukan tombol hapus dan tombol edit
           if(e.target !== btnHapus && e.target !== btnEdit){
             window.location.href = "detailNote.php?id=" + noteId;
           }
+          // cek apakah yang diklik adalah tombol hapus
           if(e.target === btnHapus){
             tampilModal();
             let imgPath = "assets/imgs/question.png";
@@ -113,25 +130,53 @@ if(modal){
             btn2.innerText = "Iya";
             btn2.style.display = "inline";
             modalMsg.innerText = "Apakah Anda Yakin Ingin Menghapus?";
-            if(modalMsg.innerText == "Apakah Anda Yakin Ingin Menghapus?"){
-              btn1.addEventListener('click', function () {
-                tutupModal();
-              });
-              btn2.addEventListener('click', function (e) {
-                tutupModal();
-                window.location.href = "hapusNote.php?id=" + noteId;
-              });
-            }
+            // ketika tombol tidak pada modal diklik
+            btn1.addEventListener('click', function () {
+              tutupModal();
+            });
+            // ketika tombol iya pada modal diklik
+            btn2.addEventListener('click', function (e) {
+              tutupModal();
+              window.location.href = "hapusNote.php?id=" + noteId;
+            });
           }
         });
       });
     }
   }
   
+  // selalu jalankan event pada notes
   eventNotes();
 }
 
+// fungsi untuk menampilkan modal konfirmasi logout
+let btnLogout = document.getElementById("logout");
+if(btnLogout){
+  btnLogout.addEventListener('click', function(e){
+    e.preventDefault();
+    let modalMsg = modal.querySelector(".teks");
+    let gambarModal = modal.querySelector("img");
+    let btn1 =  document.querySelector('.btn-1');
+    let btn2 =  document.querySelector('.btn-2');
+    let imgPath = "assets/imgs/question.png";
+    modalMsg.innerText = "Apakah anda yakin ingin keluar?";
+    gambarModal.setAttribute("src", imgPath);
+    btn2.style.display = "inline";
+    btn1.innerText = "Tidak";
+    btn2.innerText = "Iya";
+    tampilModal();
+    btn2.addEventListener('click', function(){
+      window.location.href = "logout.php";
+    });
+    btn1.addEventListener('click', function (e){
+      if(e.target !== btnLogout){
+        tutupModal();
+      }
+    });
+  });
+}
 
+// fungsi untuk mengatur format waktu pada note
 function formatTimestamp(timestamp){
   const date = new Date(timestamp);
   const formattedDate = date.toLocaleDateString('id-ID', {
@@ -142,6 +187,7 @@ function formatTimestamp(timestamp){
   return formattedDate;
 };
 
+// fungsi untuk menerapkan format waktu pada semua note
 function formatTimestampAll() {
   let displayTime = document.querySelectorAll(".time-create");
   displayTime.forEach(dTime => {
@@ -150,45 +196,12 @@ function formatTimestampAll() {
   });
 }
 
-document.addEventListener('DOMContentLoaded', () => {
-  let search = document.getElementById('search');
-  let container = document.querySelector('.cardBox');
-  if(search){
-    search.addEventListener('keyup', function () {
-      let loading = document.getElementById('loading');
-      container.style.display = "none";
-      loading.style.display = "inline";
-      let xhr = new XMLHttpRequest();
-      xhr.onreadystatechange = function(){
-        if(xhr.readyState == 4 && xhr.status == 200){
-          loading.style.display = "none";
-          container.style.display = "flex";
-          container.innerHTML = xhr.responseText;
-          eventNotes();
-          formatTimestampAll();
-          let message = container.querySelector(".message");
-          if(message !== null){
-            container.style.display = "flex";
-            container.style.justifyContent = "center";
-            container.style.alignItems = "center";
-            message.style.color = "#888"
-          } else {
-            container.style.display = "grid";
-            messageEmpty();
-          }   
-        }
-      }
-      xhr.open('GET', 'ajax/notes.php?keyword='+search.value, true);
-      xhr.send();
-    });
-  }
-});
-
-formatTimestampAll();
-
+// fungsi untuk mengecek apakah notes ada atau tidak
 function messageEmpty(){
   let container = document.querySelector('.cardBox');
   let message = document.querySelector(".message");
+
+  // jika kosong tampilkan pesan untuk membuat notes
   if(message !== null){
     container.style.display = "flex";
     container.style.justifyContent = "center";
@@ -202,21 +215,79 @@ function messageEmpty(){
   }   
 }
 
+// menerapkan format waktu pada notes 
+formatTimestampAll();
+
+// menampilkan pesan jika notes kosong
 messageEmpty();
 
+// fungsi untuk menjalankan fitur searching
+document.addEventListener('DOMContentLoaded', () => {
+  // mengumpulkan elemen yang akan dimodifikasi
+  let search = document.getElementById('search');
+  let container = document.querySelector('.cardBox');
+  if(search){
+    // pada input search ketika keyboard diklik jalankan sebuah fungsi
+    search.addEventListener('keyup', function () {
+      // menampilkan animasi loading
+      let loading = document.getElementById('loading');
+      container.style.display = "none";
+      loading.style.display = "inline";
+
+      // menjalankan ajax untuk searching secara asyncronus
+      let xhr = new XMLHttpRequest();
+      xhr.onreadystatechange = function(){
+        if(xhr.readyState == 4 && xhr.status == 200){
+          // menyembunyikan animasi loading ketika data pencarian didapat
+          loading.style.display = "none";
+          container.style.display = "flex";
+
+          // menampilkan data yang dicari di halaman html
+          container.innerHTML = xhr.responseText;
+
+          // menjalankan semua event pada notes hasil pencarian
+          eventNotes();
+
+          // menerapkan format waktu pada notes hasil pencarian
+          formatTimestampAll();
+
+          // menampilkan pesan jika notes kosong
+          messageEmpty();
+
+          // let message = container.querySelector(".message");
+          // if(message !== null){
+          //   container.style.display = "flex";
+          //   container.style.justifyContent = "center";
+          //   container.style.alignItems = "center";
+          //   message.style.color = "#888"
+          // } else {
+          //   container.style.display = "grid";
+          //   messageEmpty();
+          // }   
+        }
+      }
+      xhr.open('GET', 'ajax/notes.php?keyword='+search.value, true);
+      xhr.send();
+    });
+  }
+});
+
 document.addEventListener('DOMContentLoaded', function(){
+  // fungsi pada halaman profile dan update profile 
   if(document.getElementById('profile')){
+    // mengambil element pada halaman update profile
     let userProfileEdit = document.querySelector('.user-profile-edit');
     let image = document.querySelector('.user-profile-edit img');
     let pencil = document.querySelector('.pencil');
     if(userProfileEdit){
       pencil.style.display = "block";
       image.style.opacity = "0.7";
-      let inputGambar = document.getElementById("inputGambar");
-      let previousValue;
       userProfileEdit.addEventListener('click', function () {
         inputGambar.click();
-      });
+      }); 
+      // fungsi untuk menampilkan preview foto profile setelah diubah
+      let inputGambar = document.getElementById("inputGambar");
+      let previousValue;
       inputGambar.addEventListener('change', function(e){
         const file = e.target.files[0];
         console.log(file.name);
@@ -240,9 +311,12 @@ document.addEventListener('DOMContentLoaded', function(){
       });
     }
   }
+
+  // fungsi untuk memodifikasi form
   if(document.getElementById('noteForm')){
     let toggleEye = document.getElementById('toggleIcon');
     if (toggleEye) {
+      // fungsi untuk menampilkan password ketika tombol mata diklik
       toggleEye.addEventListener('click', function () {
         const passwordInput = document.getElementById('password');
         const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
@@ -253,6 +327,7 @@ document.addEventListener('DOMContentLoaded', function(){
     }
     let toggleEye2 = document.getElementById('toggleIcon2');
     if (toggleEye2) {
+      // fungsi untuk menampilkan password ketika tombol mata kedua diklik
       toggleEye2.addEventListener('click', function () {
         const passwordInput = document.getElementById('pwdRepeat');
         const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
@@ -266,6 +341,8 @@ document.addEventListener('DOMContentLoaded', function(){
     let noteBlue = document.querySelector(".colors .blue");
     let noteGreen = document.querySelector(".colors .green");
     let noteOrange = document.querySelector(".colors .orange");
+
+    // fungsi untuk memodifikasi input warna pada note
     if(noteRed){
       noteRed.addEventListener('click', function(){
         inputColor.value = "#ff686b";
@@ -319,29 +396,3 @@ document.addEventListener('DOMContentLoaded', function(){
     }
   }
 });
-
-let btnLogout = document.getElementById("logout");
-if(btnLogout){
-  btnLogout.addEventListener('click', function(e){
-    e.preventDefault();
-    let modalMsg = modal.querySelector(".teks");
-    let gambarModal = modal.querySelector("img");
-    let btn1 =  document.querySelector('.btn-1');
-    let btn2 =  document.querySelector('.btn-2');
-    let imgPath = "assets/imgs/question.png";
-    modalMsg.innerText = "Apakah anda yakin ingin keluar?";
-    gambarModal.setAttribute("src", imgPath);
-    btn2.style.display = "inline";
-    btn1.innerText = "Tidak";
-    btn2.innerText = "Iya";
-    tampilModal();
-    btn2.addEventListener('click', function(){
-      window.location.href = "logout.php";
-    });
-    btn1.addEventListener('click', function (e){
-      if(e.target !== btnLogout){
-        tutupModal();
-      }
-    });
-  });
-}

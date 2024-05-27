@@ -2,13 +2,19 @@
 require_once 'templates/header.php';
 require_once 'functions.php';
 
+// membuat session
 session_start();
+
+// mengumpulkan data session
 $userid = $_SESSION["userid"];
 $username = $_SESSION["username"];
 
+// mengambil data user berdasarkan data session
 $user = getUser($userid, $username);
+
+// mengumpulkan data form ketika tombol submit ditekan
 if (isset($_POST["submit"])) {
-    $data = [];
+    $data = array();
     $data[] = htmlspecialchars(trim($_POST["firstname"]));
     $data[] = htmlspecialchars(trim($_POST["lastname"]));
     $data[] = htmlspecialchars(trim($_POST["username"]));
@@ -16,10 +22,13 @@ if (isset($_POST["submit"])) {
     $data[] = htmlspecialchars(trim($_POST["hobbies"]));
     $data[] = htmlspecialchars(trim($_POST["description"]));
 
+    // menjalankan fungsi mengubah data profile
     updateProfile($userid, $data);
 }
 
 ?>
+
+<!-- container -->
 <div class="container">
     <button type="button" class="btn-back" id="back" onclick="window.location.href = 'profile.php'"><ion-icon
             name="chevron-back-outline"></ion-icon> Kembali</button>
@@ -29,6 +38,7 @@ if (isset($_POST["submit"])) {
             <ion-icon name="pencil-sharp" class="pencil"></ion-icon>
         </div>
 
+        <!-- form data -->
         <form method="POST" enctype="multipart/form-data">
             <div class="add-input add-input-profile">
                 <input type="file" name="gambar" style="display:none;" id="inputGambar" accept="image/*">
@@ -48,6 +58,8 @@ if (isset($_POST["submit"])) {
     </div>
 </div>
 
+
+<!-- modal -->
 <div class="bg-modal">
     <div class="modal">
         <img src="" alt="">

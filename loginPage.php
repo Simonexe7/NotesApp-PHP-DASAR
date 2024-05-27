@@ -1,11 +1,13 @@
 <?php
 
 require_once "functions.php";
+// simpan data form ketika tombol submit ditekan
 if (isset($_POST["submit"])) {
     $data = [];
     $data[] = htmlspecialchars(trim($_POST["username"]));
     $data[] = htmlspecialchars(trim($_POST["password"]));
 
+    // jalankan fungsi login
     login($data);
 }
 
@@ -17,10 +19,12 @@ if (isset($_POST["submit"])) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login Page - NotesApp</title>
+    <link rel="shortcut icon" href="assets/imgs/favicon.ico" type="image/x-icon">
     <link rel="stylesheet" href="assets/css/login.css">
 </head>
 
 <body>
+    <!-- container -->
     <div class="container">
         <h1>Sign In</h1>
         <p>Halo, Selamat datang!! Agar dapat masuk ke aplikasi Notes App kamu harus login terlebih dulu ya.</p>

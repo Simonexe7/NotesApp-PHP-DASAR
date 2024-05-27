@@ -1,15 +1,22 @@
 <?php require_once 'functions.php'; ?>
 <?php
+// mengambil semua note ke variabel notes
 $notes = getNotes();
+
+// membuat session
 session_start();
+
+// cek apakah user sudah login atau belum
 if ($_SESSION == []) {
     header("location: loginPage.php");
     exit();
 }
 
+// mengambil data user dari session
 $userid = $_SESSION["userid"];
 $username = $_SESSION["username"];
 
+// menggambil data user yang login
 $user = getUser($userid, $username);
 ?>
 <!DOCTYPE html>
@@ -19,11 +26,11 @@ $user = getUser($userid, $username);
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="assets/imgs/favicon.ico" type="image/x-icon">
     <title>Notes App | Muhammad Farhan</title>
     <!-- ======= Styles ====== -->
 
     <link rel="stylesheet" href="assets/css/style.css">
-    <!-- <link rel="stylesheet" href="assets/bootstrap-5.3.3/dist/css/bootstrap.min.css"> -->
 </head>
 
 <body>
@@ -64,7 +71,7 @@ $user = getUser($userid, $username);
         </ul>
     </div>
 
-    <!-- ========================= Main ==================== -->
+    <!-- ========================= topbar ==================== -->
     <div class="main active">
         <div class="topbar">
 
@@ -86,7 +93,7 @@ $user = getUser($userid, $username);
             <h1>Notes App</h1>
         </div>
 
-        <!-- ======================= Cards ================== -->
+        <!-- ======================= notes Cards ================== -->
         <img src="assets/imgs/loading.gif" alt="" id="loading">
         <div class="cardBox">
             <?php if (count($notes) == 0): ?>
@@ -133,7 +140,7 @@ $user = getUser($userid, $username);
         </div>
     </div>
 
-
+    <!-- modal -->
     <div class="bg-modal">
         <div class="modal">
             <img src="" alt="">

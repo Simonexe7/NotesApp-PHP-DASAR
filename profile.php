@@ -1,13 +1,20 @@
 <?php
 require_once 'templates/header.php';
 require_once 'functions.php';
+// membuat session
 session_start();
+
+// mengambil data session
 $userid = $_SESSION["userid"];
 $username = $_SESSION["username"];
+
+// mengambil data user berdasarkan data session
 $user = getUser($userid, $username);
 ?>
+
+<!-- container -->
 <div class="container">
-    <button type="button" class="btn-back" id="back" onclick="window.location.href = 'index.php'"><ion-icon
+    <button type="button" class="btn-back" id="back" onclick="direct()"><ion-icon
             name="chevron-back-outline"></ion-icon> Kembali</button>
     <div class="profile" id="profile">
         <div class="user-profile">
@@ -20,6 +27,7 @@ $user = getUser($userid, $username);
                 Profile</button>
         </div>
 
+        <!-- form data -->
         <form action="" method="POST">
             <div class="add-input add-input-profile">
                 <input type="text" placeholder="Title" name="title" value="Username : <?= $user['username'] ?>"
@@ -42,6 +50,7 @@ $user = getUser($userid, $username);
     </div>
 </div>
 
+<!-- modal -->
 <div class="bg-modal">
     <div class="modal">
         <img src="" alt="">

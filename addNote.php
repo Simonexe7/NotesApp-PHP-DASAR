@@ -2,18 +2,16 @@
 require_once 'templates/header.php';
 require_once 'functions.php';
 
+// mengumpulkan data form
 if (isset($_POST["submit"])) {
     $data = array();
     $data[] = htmlspecialchars(trim($_POST["title"]));
     $data[] = htmlspecialchars(trim($_POST["tags"]));
     $data[] = htmlspecialchars(trim($_POST["body"]));
-    $data[] = htmlspecialchars(trim($_POST["color"]));
+    $data[] = $_POST["color"];
 
-    if (createNote($data)) {
-        header("location: index.php?status=failed&message=addfailed");
-    } else {
-        header("location: index.php?status=success&message=addsuccess");
-    }
+    // menjalankan fungsi tambah note
+    createNote($data);
 }
 ?>
 <div class="container">
@@ -21,7 +19,8 @@ if (isset($_POST["submit"])) {
         <h1>Create Note</h1>
     </div>
 
-    <form action="" method="POST" id="noteForm">
+    <!-- form -->
+    <form method="POST" id="noteForm">
         <div class="add-input">
             <input type="text" placeholder="Title" name="title" required>
             <input type="text" placeholder="Tags" name="tags" required>
@@ -34,7 +33,7 @@ if (isset($_POST["submit"])) {
                 <div class="color orange"></div>
             </div>
             <div class="action">
-                <button type="button" class="btn" onclick="window.location.href = 'index.php'">Cancel</button>
+                <button type="button" class="btn" onclick="direct()">Cancel</button>
                 <button type="submit" class="btn btn_submit" name="submit">Create</button>
             </div>
         </div>

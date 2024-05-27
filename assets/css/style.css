@@ -661,6 +661,10 @@ body {
     width: 70px;
     height: 70px;
   }
+
+  #loading {
+    left: 25%;
+  }
 }
 
 @keyframes fadeIn {

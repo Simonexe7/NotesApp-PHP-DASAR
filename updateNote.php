@@ -1,24 +1,21 @@
 <?php
 require_once 'templates/header.php';
-require_once 'config.php';
+require_once 'functions.php';
 
+// mengambil note berdasarkan id
 $noteId = $_GET['id'];
-$result = mysqli_query($conn, "SELECT * FROM notes WHERE id = $noteId");
-$note = mysqli_fetch_assoc($result);
+$note = getNoteById($noteId);
 
+// mengumpulkan data form ketika tombol submit ditekan
 if (isset($_POST["submit"])) {
-    $data = [];
+    $data = array();
     $data[] = htmlspecialchars(trim($_POST['title']));
     $data[] = htmlspecialchars(trim($_POST['tags']));
     $data[] = htmlspecialchars(trim($_POST['body']));
     $data[] = htmlspecialchars(trim($_POST['color']));
 
-    $result = mysqli_query($conn, "UPDATE notes SET title = '$data[0]', tags = '$data[1]', body = '$data[2]', color = '$data[3]', updated_at = NOW() WHERE id = $noteId");
-    if ($result) {
-        header("location: index.php?status=success&message=updtsuccess");
-    } else {
-        header("location: index.php?status=failed&message=updtfailed");
-    }
+    // menjalankan fungsi mengubah note
+    updateNote($noteId, $data);
 }
 
 ?>
@@ -40,7 +37,7 @@ if (isset($_POST["submit"])) {
                 <div class="color orange"></div>
             </div>
             <div class="action">
-                <button class="btn btn_cancel">Cancel</button>
+                <button type="button" class="btn" onclick="direct()">Cancel</button>
                 <button type="submit" name="submit" class="btn btn_update">Update</button>
             </div>
         </div>
